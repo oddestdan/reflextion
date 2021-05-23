@@ -1,0 +1,16 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "lib": ["es6"],
+    "module": "amd",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "target": "es6"
+  },
+  "exclude": ["node_modules", "src/**/*.spec.ts", "./**/**.**.ts"]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "reflextion",
+  "version": "0.0.1",
+  "description": "App for self-improvement and daily achievements",
+  "main": "index.js",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oddestdan/reflextion.git"
+  },
+  "author": "Dan Stetsenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oddestdan/reflextion/issues"
+  },
+  "homepage": "https://github.com/oddestdan/reflextion#readme",
+  "dependencies": {
+    "@types/jest": "^26.0.23"
+  }
+}
