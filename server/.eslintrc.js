@@ -27,11 +27,16 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.ts', '*.tsx', '*.spec.ts'],
+      files: ['*.ts', '*.tsx'],
       parserOptions: {
         project: ['./tsconfig.json'],
       },
     },
   ],
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    sourceType: 'module',
+    tsconfigRootDir: __dirname,
+    project: ['tsconfig.json'],
+  },
 };
