@@ -4,18 +4,14 @@
   "description": "Server-side for reflextion app",
   "main": "main.js",
   "scripts": {
+    "precommit": "lint-staged",
     "build": "tsc",
     "start": "tsc -w & nodemon dist",
-    "lint": "eslint src --quiet & prettier src --check",
+    "lint": "eslint src --quiet",
     "test": "jest"
   },
   "author": "Dan Stetsenko",
   "license": "ISC",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && npm run test --forceExit"
-    }
-  },
   "dependencies": {
     "express": "^4.17.1"
   },
