@@ -1,0 +1,17 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "lib": ["ES2020", "dom"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "target": "ES5"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "src/**/*.spec.ts", "./**/**.**.ts"]
+}
