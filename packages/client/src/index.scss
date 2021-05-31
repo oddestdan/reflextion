@@ -1,0 +1,13 @@
+$not-coral: coral;
+
+h1 {
+  color: $not-coral;
+  font-family: Ariel;
+}
+
+#testFakeImg {
+  background: url('assets/test.jpg');
+  height: 500px;
+  width: 500px;
+  background-size: cover;
+}

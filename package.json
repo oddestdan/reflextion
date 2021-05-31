@@ -1,0 +1,35 @@
+{
+  "name": "reflextion",
+  "version": "0.0.1",
+  "description": "App for self-improvement and daily achievements",
+  "main": "index.js",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "lint": "lerna run lint --parallel",
+    "setup": "npm install && npm run bootstrap",
+    "start": "lerna run start --parallel"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oddestdan/reflextion.git"
+  },
+  "author": "Dan Stetsenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oddestdan/reflextion/issues"
+  },
+  "homepage": "https://github.com/oddestdan/reflextion#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@commitlint/config-lerna-scopes": "^12.1.4",
+    "@types/jest": "^26.0.23",
+    "husky": "^6.0.0",
+    "lerna": "^4.0.0",
+    "lint-staged": "^11.0.0"
+  }
+}
