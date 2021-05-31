@@ -10,7 +10,12 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
-    "target": "ES5"
+    "target": "ES5",
+    "paths": {
+      "@enums": ["src/enums"],
+      "@models": ["src/models"],
+      "@types": ["src/types"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "src/**/*.spec.ts"]

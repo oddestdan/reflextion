@@ -54,3 +54,6 @@ jspm_packages/
 # System Files
 .DS_Store
 Thumbs.db
+
+# Typedoc generated files
+docs/
