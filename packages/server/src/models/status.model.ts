@@ -1,4 +1,4 @@
-import { StatusState } from '@enums';
+import { StatusState } from '../enums';
 
 /**
  * Status describes a state of some item (a task or an achievement)

@@ -1,5 +1,5 @@
+import { StatusState } from 'src/enums';
 import { Status } from './status.model';
-import { Task } from './task.model';
 
 /**
  * Achievement describes a set of several tasks accomplished
@@ -7,10 +7,10 @@ import { Task } from './task.model';
  * @category Interfaces
  */
 export interface Achievement {
-  id: number | string;
+  id: string;
   description: string;
   icon: string;
-  checkComplete: (taskStatus: Map<Pick<Task, 'id'>, Status>) => Status;
+  checkComplete: (taskStatus: Record<string, Status>) => StatusState;
 }
 
 /**
@@ -18,8 +18,6 @@ export interface Achievement {
  * and its current status in scope of the challenge.
  * @category Interfaces
  */
-export interface ActualAchievement
-  extends Pick<Achievement, 'id' | 'description'> {
-  image: string;
+export interface ActualAchievement extends Omit<Achievement, 'checkComplete'> {
   status: Status;
 }

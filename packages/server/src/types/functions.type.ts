@@ -6,17 +6,19 @@ import {
   Status,
   Task,
   TaskForToday,
-} from '@models';
+} from '../models';
 
 /**
  * Returns a current task with its status by the challenge id.
  * @category Functions
  * @param challengeId Id of a challenge.
+ * @param challenges Array of challenges for a new challenge.
  * @returns TaskForToday Current task with its status.
  */
 export type GetTaskForToday = (
-  challengeId: Pick<Challenge, 'id'>
-) => TaskForToday;
+  challengeId: string,
+  challenges: Challenge[]
+) => TaskForToday | undefined;
 
 /**
  * Returns a new challenge. Challenge duration that by default should be
@@ -39,10 +41,12 @@ export type StartNewChallenge = (
  * Returns all past tasks with their results by the challenge id.
  * @category Functions
  * @param challengeId Id of challenge.
+ * @param challenges Array of challenges for a new challenge.
  * @returns ArchiveItem[] Array of past tasks with their results.
  */
 export type GetTaskArchive = (
-  challengeId: Pick<Challenge, 'id'>
+  challengeId: string,
+  challenges: Challenge[]
 ) => ArchiveItem[];
 
 /**
@@ -50,20 +54,22 @@ export type GetTaskArchive = (
  * and tasks status.
  * @category Functions
  * @param achievements List of an achievements.
- * @param tasksStatuses Map of task Ids and their statuses.
+ * @param tasksStatuses Tasks completion status.
  * @returns AchievementsStatusMap Map of achivement ids and their statuses.
  */
 export type CalculateAchievementsStatus = (
   achievements: Achievement[],
-  tasksStatus: Map<Pick<Task, 'id'>, Status>
-) => Map<Pick<Achievement, 'id'>, Status>;
+  tasksStatus: Status
+) => Record<string, Status>;
 
 /**
  * Returns a list of actual achievements by the challenge id.
  * @category Functions
  * @param challengeId Id of a challenge.
+ * @param challenges Array of challenges for a new challenge.
  * @returns ActualAchievement[] Array of actual achievements.
  */
 export type GetActualAchievements = (
-  challengeId: Pick<Challenge, 'id'>
+  challengeId: string,
+  challenges: Challenge[]
 ) => ActualAchievement[];
