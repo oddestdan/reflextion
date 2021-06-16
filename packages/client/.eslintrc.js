@@ -9,7 +9,6 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
-    'plugin:prettier/recommended',
     'prettier',
   ],
   plugins: ['@typescript-eslint', 'prettier'],
@@ -36,5 +35,6 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
+    project: ['tsconfig.json'],
   },
 };
