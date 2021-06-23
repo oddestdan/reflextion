@@ -1,8 +1,8 @@
 export default {
   clearMocks: true,
-  // collectCoverage: true,
-  // coverageDirectory: 'coverage',
-  collectCoverage: false,
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  // collectCoverage: false,
   moduleDirectories: ['node_modules', 'src'],
   moduleFileExtensions: ['js', 'json', 'ts', 'node'],
   // moduleNameMapper: {

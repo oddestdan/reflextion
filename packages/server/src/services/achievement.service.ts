@@ -6,7 +6,9 @@ export const checkAchievementComplete = (
   taskStatus: Record<string, Status>
 ): StatusState => {
   const tasksResult = Object.values(taskStatus);
-  if (tasksResult.some((task) => task.state === StatusState.Success)) {
+
+  if (!tasksResult.length) return undefined;
+  if (tasksResult.some((task) => task.state === StatusState.Failure)) {
     return StatusState.Failure;
   }
   if (tasksResult.some((task) => task.state === StatusState.Pending)) {

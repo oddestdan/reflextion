@@ -14,18 +14,17 @@ describe('challenge service', () => {
     beforeEach(() => {
       jest.useFakeTimers('modern');
       jest.setSystemTime(new Date('June 16, 2021'));
-    });
-
-    it('should return a new challenge', () => {
       newChallenge = startNewChallenge(
         tasksMock.tasks,
         challengesMock.challenges,
         undefined,
         undefined
       );
-      expect(newChallenge).toBeTruthy();
     });
 
+    it('should return a new challenge', () => {
+      expect(newChallenge).toBeTruthy();
+    });
     it('should have next id as new challenge id', () => {
       expect(newChallenge.id).toEqual('3');
     });
@@ -55,6 +54,18 @@ describe('challenge service', () => {
 
     afterEach(() => {
       jest.useRealTimers();
+    });
+
+    describe('edge cases', () => {
+      it('should assign id of "1" to first challenge (if there arent any)', () => {
+        newChallenge = startNewChallenge(
+          tasksMock.tasks,
+          [],
+          undefined,
+          undefined
+        );
+        expect(newChallenge.id).toEqual('1');
+      });
     });
   });
 });
