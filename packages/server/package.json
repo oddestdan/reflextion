@@ -2,13 +2,14 @@
   "name": "reflextion-server",
   "version": "0.0.1",
   "description": "Server-side for reflextion app",
-  "main": "main.js",
+  "main": "src/index.ts",
   "scripts": {
     "precommit": "lint-staged",
     "build": "tsc",
-    "start": "tsc -w & nodemon dist",
+    "start": "tsc -w & nodemon --delay 500ms dist",
     "lint": "eslint src --quiet",
     "test": "jest",
+    "test:watch": "jest --watch",
     "doc": "typedoc"
   },
   "author": "Dan Stetsenko",
@@ -34,5 +35,10 @@
     "ts-node": "^10.0.0",
     "typedoc": "^0.20.36",
     "typescript": "^4.2.4"
+  },
+  "jest": {
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ]
   }
 }

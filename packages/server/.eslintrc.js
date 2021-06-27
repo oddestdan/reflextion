@@ -1,7 +1,7 @@
 module.exports = {
   env: {
-    commonjs: true,
     es2021: true,
+    commonjs: true,
     node: true,
   },
   extends: [
@@ -23,6 +23,8 @@ module.exports = {
     'no-useless-return': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-var-requires': 'off',
+    'import/prefer-default-export': 'off',
+    'no-plusplus': 'off',
   },
   overrides: [
     {
