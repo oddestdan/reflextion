@@ -20,7 +20,7 @@ describe('task service', () => {
       Date.now = jest.fn(() => new Date('June 16, 2021').getTime());
     });
 
-    it('should return all past tasks with their results', () => {
+    it('should return a task for today by challenge id', () => {
       const taskForToday = getTaskForToday('2', challengesMock.challenges);
       expect(taskForToday).toBeTruthy();
       expect(taskForToday.description).toEqual('Go to bed before 11:00 PM');
