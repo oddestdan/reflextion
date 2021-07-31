@@ -1,3 +1,4 @@
+import mongoose = require('mongoose');
 import { Status } from './status.model';
 
 /**
@@ -26,3 +27,10 @@ export interface TaskForToday extends Task {
 export interface ArchiveItem extends Task {
   status: Status;
 }
+
+export const TaskModel = mongoose.model(
+  'Task',
+  new mongoose.Schema({
+    description: { type: String, default: '' },
+  })
+);

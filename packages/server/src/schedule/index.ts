@@ -13,7 +13,6 @@ export default function runScheduler(): void {
   const currentChallenge = challengesMock.challenges.find(
     (challenge) => challenge.id === '1'
   );
-  console.log(currentChallenge);
   const challengeEndDate = addDays(currentChallenge.startDate, 30);
 
   // schedule for today's status task to Fail at 12 AM every day during the challenge
@@ -33,7 +32,6 @@ export default function runScheduler(): void {
   // at 12 AM of the last day of the challenge
   schedule.scheduleJob(challengeEndDate, () => {
     const taskForToday = getTaskForToday('1', challengesMock.challenges);
-    console.log(taskForToday);
 
     if (!taskForToday) return;
 

@@ -29,8 +29,6 @@ export default function runSocketIO(httpServer: http.Server): void {
         updated: new Date(),
       };
 
-      // console.log(taskForToday.status);
-      // console.log(achievementsMock.achievements);
       const achievementsStatusMap = calculateAchievementsStatus(
         achievementsMock.achievements,
         taskForToday.status
