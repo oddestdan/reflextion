@@ -1,3 +1,4 @@
+import * as mongoose from 'mongoose';
 import { StatusState } from 'src/enums';
 import { Status } from './status.model';
 
@@ -6,7 +7,7 @@ import { Status } from './status.model';
  * in the specific way.
  * @category Interfaces
  */
-export interface Achievement {
+export interface Achievement extends mongoose.Document {
   id: string;
   description: string;
   icon: string;
@@ -21,3 +22,14 @@ export interface Achievement {
 export interface ActualAchievement extends Omit<Achievement, 'checkComplete'> {
   status: Status;
 }
+
+export const AchievementSchema = new mongoose.Schema({
+  description: { type: String, default: '' },
+  icon: { type: String, default: '' },
+  isDefault: { type: Boolean, default: false },
+});
+
+export const AchievementModel = mongoose.model<Achievement>(
+  'Achievement',
+  AchievementSchema
+);

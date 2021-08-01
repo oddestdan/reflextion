@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongoose';
 import { achievementsData } from '../data';
 import { ChallengeState, StatusState } from '../enums';
 import { Challenge, Task } from '../models';
@@ -8,6 +9,7 @@ import { checkAchievementComplete } from './achievement.service';
 export const startNewChallenge: StartNewChallenge = (
   tasks: Task[],
   challenges: Challenge[],
+  assignedUserId: ObjectId,
   challengeDuration = 30,
   achivementsCount = challengeDuration / 6
 ): Challenge => {
@@ -47,5 +49,6 @@ export const startNewChallenge: StartNewChallenge = (
     tasksStatus,
     achievementsOrder,
     achievementsStatus,
+    assignedUserId,
   };
 };

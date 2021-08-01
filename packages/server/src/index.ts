@@ -1,15 +1,49 @@
-// const app = require('express')();
-// const PORT = 8080;
-// app.listen(PORT, () => {
-//   console.log(`Server running on http://localhost:${PORT}`);
-// });
+import * as express from 'express';
+import * as http from 'http';
+import { authenticate } from 'passport';
 
-// TODO: TSCONFIG paths
-// paths: {
-//   '@enums': ['src/enums'],
-//   '@models': ['src/models'],
-//   '@types': ['src/types'],
-//   '@utils': ['src/utils'],
-//   '@services': ['src/services'],
-//   '@data': ['src/data'],
-// },
+import * as expressPino from 'express-pino-logger';
+import logger from './middleware/logger';
+import authMiddleware from './middleware/auth';
+import runScheduler from './schedule';
+import runSocketIO from './socket';
+import connectDB from './lib/db';
+
+require('dotenv').config();
+
+const app = express();
+const server = http.createServer(app);
+const port = process.env.PORT;
+
+app.use(expressPino({ logger }));
+
+connectDB();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+authMiddleware();
+
+app.use('/auth', require('./routes/auth/auth'));
+app.use(
+  '/api',
+  authenticate('jwt', { session: false }),
+  require('./routes/api/achievement')
+);
+app.use(
+  '/api',
+  authenticate('jwt', { session: false }),
+  require('./routes/api/challenge')
+);
+app.use(
+  '/api',
+  authenticate('jwt', { session: false }),
+  require('./routes/api/task')
+);
+
+runSocketIO(server);
+runScheduler();
+
+server.listen(port, () => {
+  logger.info(`Server running on http://localhost:${port}`);
+});

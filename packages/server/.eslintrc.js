@@ -23,8 +23,13 @@ module.exports = {
     'no-useless-return': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/no-this-alias': 'off',
     'import/prefer-default-export': 'off',
     'no-plusplus': 'off',
+    'no-underscore-dangle': 'off',
+    'consistent-return': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    '@typescript-eslint/no-shadow': 'off',
   },
   overrides: [
     {

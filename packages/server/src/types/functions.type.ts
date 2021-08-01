@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongoose';
 import {
   Achievement,
   ActualAchievement,
@@ -33,6 +34,7 @@ export type GetTaskForToday = (
 export type StartNewChallenge = (
   tasks: Task[],
   challenges: Challenge[],
+  assignedUserId: ObjectId,
   challengeDuration: number,
   achivementsCount: number
 ) => Challenge;

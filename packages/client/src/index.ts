@@ -1,9 +1,7 @@
-import "./index.scss";
+import { io } from 'socket.io-client';
 
-const h1 = document.createElement("h1");
-h1.textContent = "Hell, World!";
-document.body.appendChild(h1);
+const ioConnection = io('http://localhost:8080');
 
-const div = document.createElement("div");
-div.id = "testFakeImg";
-document.body.appendChild(div);
+ioConnection.on('connect', () => {
+  ioConnection.emit('taskForTodayCompleted', '1');
+});

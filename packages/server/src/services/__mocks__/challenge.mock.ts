@@ -8,7 +8,7 @@ export const challengesMock = {
     {
       id: '1',
       state: ChallengeState.InProgress,
-      startDate: new Date('June 15, 2021'),
+      startDate: new Date('July 4, 2021'),
       tasksOrder: new Set(tasksMock.tasks.slice(0, 3)),
       tasksStatus: {
         '0': { state: StatusState.Pending, updated: new Date() },
@@ -28,7 +28,7 @@ export const challengesMock = {
     {
       id: '2',
       state: ChallengeState.InProgress,
-      startDate: new Date('June 15, 2021'),
+      startDate: new Date('July 4, 2021'),
       tasksOrder: new Set(tasksMock.tasks.slice(0, 4)),
       tasksStatus: {
         '1': { state: StatusState.Pending, updated: new Date() },
