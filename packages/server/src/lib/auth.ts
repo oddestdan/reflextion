@@ -1,9 +1,8 @@
+import * as passport from 'passport';
+
+import { Strategy as LocalStrategy } from 'passport-local';
+import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 import { UserModel } from '../models';
-
-const passport = require('passport');
-
-const { Strategy: LocalStrategy } = require('passport-local');
-const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt');
 
 const dbsecret = process.env.DB_SECRET;
 

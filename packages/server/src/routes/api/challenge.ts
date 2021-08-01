@@ -1,21 +1,14 @@
-import express = require('express');
-import { ChallengeModel } from '../../models';
+import * as express from 'express';
+import { Request } from '../../dto';
+import { ChallengeModel, TaskModel } from '../../models';
 import { startNewChallenge } from '../../services';
-import { fakeData } from '../../utils';
 
 const router = express.Router();
 
-router.post('/challenge', async (req, res) => {
-  // TODO: create an interface for _id / email UserDTO
-  const { user }: any = req;
-  const newChallenge = startNewChallenge(
-    fakeData.tasks,
-    fakeData.challenges,
-    user._id,
-    31,
-    5
-  );
-  fakeData.challenges.push(newChallenge);
+router.post('/challenge', async ({ user }: Request, res) => {
+  const tasks = await TaskModel.find();
+  const challenges = await ChallengeModel.find();
+  const newChallenge = startNewChallenge(tasks, challenges, user._id, 31, 5);
   const savedChallenge = await new ChallengeModel(newChallenge).save();
 
   return res.json({
@@ -25,8 +18,7 @@ router.post('/challenge', async (req, res) => {
   });
 });
 
-router.get('/challenge/active', async (req, res) => {
-  const { user }: any = req;
+router.get('/challenge/active', async ({ user }: Request, res) => {
   const activeChallenge = await ChallengeModel.findOne({
     assignedUserId: user._id,
   });

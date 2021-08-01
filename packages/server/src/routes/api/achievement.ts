@@ -1,15 +1,13 @@
-import express = require('express');
+import * as express from 'express';
+import { ChallengeModel } from 'src/models';
 import { getActualAchievements } from '../../services';
-import { fakeData } from '../../utils';
 
 const router = express.Router();
 
-router.get('/achievement/:id', (req, res) => {
+router.get('/achievement/:id', async (req, res) => {
   try {
-    const actualAchievements = getActualAchievements(
-      req.params.id,
-      fakeData.challenges
-    );
+    const challenges = await ChallengeModel.find();
+    const actualAchievements = getActualAchievements(req.params.id, challenges);
 
     if (!actualAchievements) {
       return res.json({ status: `Unable to find actual achievements` });

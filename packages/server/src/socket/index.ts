@@ -1,9 +1,13 @@
-import SocketIO = require('socket.io');
-import http = require('http');
+import * as SocketIO from 'socket.io';
+import http from 'http';
 import { calculateAchievementsStatus, getTaskForToday } from '../services';
 import { StatusState } from '../enums';
-import { achievementsMock } from '../services/__mocks__/achievement.mock';
-import { challengesMock } from '../services/__mocks__/challenge.mock';
+import {
+  Achievement,
+  AchievementModel,
+  Challenge,
+  ChallengeModel,
+} from '../models';
 
 const connectServer = (httpServer: http.Server) =>
   new SocketIO.Server(httpServer, {
@@ -18,10 +22,11 @@ export default function runSocketIO(httpServer: http.Server): void {
   io.on('connection', (socket) => {
     console.log('connected socket', socket.id);
 
-    socket.on('taskForTodayCompleted', (taskId: string) => {
+    socket.on('taskForTodayCompleted', async (taskId: string) => {
       console.log(`task for today completed: id = "${taskId}"`);
 
-      const taskForToday = getTaskForToday(taskId, challengesMock.challenges);
+      const challenges: Challenge[] = await ChallengeModel.find();
+      const taskForToday = getTaskForToday(taskId, challenges);
       if (!taskForToday) return;
 
       taskForToday.status = {
@@ -29,8 +34,9 @@ export default function runSocketIO(httpServer: http.Server): void {
         updated: new Date(),
       };
 
+      const achievements: Achievement[] = await AchievementModel.find();
       const achievementsStatusMap = calculateAchievementsStatus(
-        achievementsMock.achievements,
+        achievements,
         taskForToday.status
       );
       console.log(achievementsStatusMap);

@@ -1,14 +1,20 @@
-import mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 import { Status } from './status.model';
 
 /**
  * Task describes a single action that should be done by the user.
  * @category Interfaces
  */
-export interface Task {
+export interface Task extends mongoose.Document {
   id: string;
   description: string;
 }
+
+export const TaskSchema = new mongoose.Schema({
+  description: { type: String, default: '' },
+});
+
+export const TaskModel = mongoose.model<Task>('Task', TaskSchema);
 
 /**
  * TaskForToday provides information about a current task for today
@@ -27,10 +33,3 @@ export interface TaskForToday extends Task {
 export interface ArchiveItem extends Task {
   status: Status;
 }
-
-export const TaskModel = mongoose.model(
-  'Task',
-  new mongoose.Schema({
-    description: { type: String, default: '' },
-  })
-);

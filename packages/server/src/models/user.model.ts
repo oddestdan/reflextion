@@ -1,7 +1,7 @@
-import mongoose = require('mongoose');
-import bcrypt = require('bcrypt');
+import * as mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
-const UserSchema = new mongoose.Schema(
+export const UserSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true, trim: true },
@@ -9,13 +9,13 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export interface IUserModel extends mongoose.Document {
+export interface User extends mongoose.Document {
   comparePassword(password: string);
   email: string;
   password: string;
 }
 
-UserSchema.pre<IUserModel>('save', async function (next) {
+UserSchema.pre<User>('save', async function (next) {
   const saltRounds = Number(process.env.SALT_ROUNDS);
   const user = this;
   if (!user.isModified()) {
@@ -31,8 +31,8 @@ UserSchema.pre<IUserModel>('save', async function (next) {
 });
 
 UserSchema.methods.comparePassword = async function comparePassword(candidate) {
-  const user = this as IUserModel;
+  const user = this as User;
   return bcrypt.compare(candidate, user.password);
 };
 
-export const UserModel = mongoose.model<IUserModel>('User', UserSchema);
+export const UserModel = mongoose.model<User>('User', UserSchema);

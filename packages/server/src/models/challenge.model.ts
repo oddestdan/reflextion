@@ -13,7 +13,7 @@ import { Task } from './task.model';
  * (>= 90% tasks completed) or failed (<90% tasks completed)
  * @category Interfaces
  */
-export interface Challenge {
+export interface Challenge extends mongoose.Document {
   id: string;
   state: ChallengeState;
   startDate: Date; // start date -> 30 days -> end date
@@ -24,15 +24,17 @@ export interface Challenge {
   assignedUserId: mongoose.ObjectId;
 }
 
-export const ChallengeModel = mongoose.model(
+export const ChallengeSchema = new mongoose.Schema({
+  state: { type: ChallengeState },
+  startDate: { type: Date },
+  tasksOrder: { type: Object, default: [] },
+  tasksStatus: { type: Object },
+  achievementsOrder: { type: Object, default: [] },
+  achievementsStatus: { type: Object },
+  assignedUserId: { type: mongoose.Types.ObjectId },
+});
+
+export const ChallengeModel = mongoose.model<Challenge>(
   'Challenge',
-  new mongoose.Schema({
-    state: { type: ChallengeState },
-    startDate: { type: Date },
-    tasksOrder: { type: Object, default: [] },
-    tasksStatus: { type: Object },
-    achievementsOrder: { type: Object, default: [] },
-    achievementsStatus: { type: Object },
-    assignedUserId: { type: mongoose.Types.ObjectId },
-  })
+  ChallengeSchema
 );

@@ -1,12 +1,13 @@
-import express = require('express');
+import * as express from 'express';
+import { ChallengeModel } from 'src/models';
 import { getTaskArchive, getTaskForToday } from '../../services';
-import { fakeData } from '../../utils';
 
 const router = express.Router();
 
-router.get('/task/:id', (req, res) => {
+router.get('/task/:id', async (req, res) => {
   try {
-    const taskForToday = getTaskForToday(req.params.id, fakeData.challenges);
+    const challenges = await ChallengeModel.find();
+    const taskForToday = getTaskForToday(req.params.id, challenges);
 
     if (!taskForToday) {
       return res.json({ status: `Unable to find today's task` });
@@ -21,9 +22,10 @@ router.get('/task/:id', (req, res) => {
   }
 });
 
-router.get('/task/archive/:id', (req, res) => {
+router.get('/task/archive/:id', async (req, res) => {
   try {
-    const taskArchive = getTaskArchive(req.params.id, fakeData.challenges);
+    const challenges = await ChallengeModel.find();
+    const taskArchive = getTaskArchive(req.params.id, challenges);
 
     if (!taskArchive) {
       return res.json({ status: `Unable to find task archive` });

@@ -1,23 +1,13 @@
-import schedule = require('node-schedule');
-import { addDays } from '../utils';
+import * as schedule from 'node-schedule';
+import { ChallengeModel } from 'src/models';
 import { StatusState } from '../enums';
-import {
-  calculateAchievementsStatus,
-  checkAchievementComplete,
-  getTaskForToday,
-} from '../services';
-import { challengesMock } from '../services/__mocks__/challenge.mock';
-import { achievementsMock } from '../services/__mocks__/achievement.mock';
+import { getTaskForToday } from '../services';
 
-export default function runScheduler(): void {
-  const currentChallenge = challengesMock.challenges.find(
-    (challenge) => challenge.id === '1'
-  );
-  const challengeEndDate = addDays(currentChallenge.startDate, 30);
-
+export default async function runScheduler(): Promise<void> {
+  const challenges = await ChallengeModel.find();
   // schedule for today's status task to Fail at 12 AM every day during the challenge
   const everydayFailJob = schedule.scheduleJob('00 12 * * 0-6', () => {
-    const taskForToday = getTaskForToday('1', challengesMock.challenges);
+    const taskForToday = getTaskForToday('1', challenges);
     console.log(taskForToday);
 
     if (taskForToday && taskForToday.status.state !== StatusState.Success) {
@@ -28,20 +18,25 @@ export default function runScheduler(): void {
     }
   });
 
+  // TODO:
+  // const currentChallenge = challengesMock.challenges.find(
+  //   (challenge) => challenge.id === '1'
+  // );
+  // const challengeEndDate = addDays(currentChallenge.startDate, 30);
   // schedule to calculate achievements status and challenge state
   // at 12 AM of the last day of the challenge
-  schedule.scheduleJob(challengeEndDate, () => {
-    const taskForToday = getTaskForToday('1', challengesMock.challenges);
+  // schedule.scheduleJob(challengeEndDate, () => {
+  //   const taskForToday = getTaskForToday('1', challenges);
 
-    if (!taskForToday) return;
+  //   if (!taskForToday) return;
 
-    const achievementsStatusMap = calculateAchievementsStatus(
-      achievementsMock.achievements,
-      taskForToday.status
-    );
-    const statusState = checkAchievementComplete(achievementsStatusMap);
-    console.log(achievementsStatusMap, statusState);
+  //   const achievementsStatusMap = calculateAchievementsStatus(
+  //     achievementsMock.achievements,
+  //     taskForToday.status
+  //   );
+  //   const statusState = checkAchievementComplete(achievementsStatusMap);
+  //   console.log(achievementsStatusMap, statusState);
 
-    everydayFailJob.cancel();
-  });
+  //   everydayFailJob.cancel();
+  // });
 }

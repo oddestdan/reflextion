@@ -1,6 +1,5 @@
+import * as seeder from 'mongoose-seed';
 import { ChallengeState, StatusState } from '../enums';
-
-const seeder = require('mongoose-seed');
 
 const tasksSeed = {
   model: 'Task',

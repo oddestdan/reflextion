@@ -1,8 +1,8 @@
-import express = require('express');
-import http = require('http');
+import * as express from 'express';
+import * as http from 'http';
 import { authenticate } from 'passport';
 
-import expressPino = require('express-pino-logger');
+import * as expressPino from 'express-pino-logger';
 import logger from './middleware/logger';
 import authMiddleware from './middleware/auth';
 import runScheduler from './schedule';
