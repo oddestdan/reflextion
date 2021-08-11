@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'app-header',
-};
+import { defineComponent } from '@vue/runtime-core';
+
+export default defineComponent({});
 </script>
 
 <style scoped lang="scss">

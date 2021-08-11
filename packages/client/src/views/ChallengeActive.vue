@@ -1,5 +1,5 @@
 <template>
-  <h2>Hello my friend</h2>
+  <h2>Hello my {{ typeOS || 'default' }} friend</h2>
 
   <!-- TODO: extract as a separate component -->
   <div class="task-box">
@@ -8,7 +8,7 @@
     </p>
     <p v-else>This is your task for today:</p>
 
-    <p>
+    <p @click="completeTask" class="completable-task">
       ({{ taskForToday.isCompleted ? '✅' : '❌' }})
       {{ taskForToday.description }}
     </p>
@@ -31,18 +31,46 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
+import { getOS } from '@/utils';
+import { VIBRATE_MS } from '@/config';
 
 export default defineComponent({
   data() {
     return {
-      achievements: this.$store.state.activeChallenge.achievementsOrder,
+      typeOS: '',
+      achievements: [],
       taskForToday: {
-        ...this.$store.state.activeChallenge.tasksOrder[0],
         isCompleted: false,
       },
     };
   },
   methods: {
+    checkHasActiveChallenge(): void {
+      const hasActiveChallenge = Boolean(this.$store.state.activeChallenge.id);
+      if (hasActiveChallenge) {
+        this.setupInitialData();
+      } else {
+        this.$router.push('/challenge/new');
+      }
+    },
+
+    setupInitialData(): void {
+      this.achievements = this.$store.state.activeChallenge.achievementsOrder;
+      this.taskForToday = {
+        ...this.$store.state.activeChallenge.tasksOrder[0],
+        isCompleted: false, // TODO: infer from tasksStatuses
+      };
+    },
+
+    completeTask(): void {
+      this.taskForToday.isCompleted = true;
+      window.navigator.vibrate(VIBRATE_MS);
+    },
+
+    determineOS(): void {
+      this.typeOS = getOS();
+    },
+
     // should integrate with WS
     finishChallenge(): void {
       // evaluate active challenge's State (SUCCESS or FAILURE)
@@ -51,6 +79,9 @@ export default defineComponent({
     },
   },
   created() {
+    this.checkHasActiveChallenge();
+    this.determineOS();
+
     // setTimeout(() => {
     // this.finishChallenge();
     // }, 3000);
@@ -58,4 +89,11 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.completable-task {
+  cursor: pointer;
+  &:hover {
+    font-weight: bold;
+  }
+}
+</style>
