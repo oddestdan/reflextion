@@ -1,40 +1,29 @@
 module.exports = {
+  root: true,
   env: {
-    commonjs: true,
-    es2021: true,
+    node: true,
   },
   extends: [
-    'airbnb-typescript/base',
+    'plugin:vue/vue3-essential',
     'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:import/typescript',
-    'prettier',
+    '@vue/typescript/recommended',
+    '@vue/prettier',
+    '@vue/prettier/@typescript-eslint',
   ],
-  plugins: ['@typescript-eslint', 'prettier'],
-  rules: {
-    'no-console': 'off',
-    'func-names': 'off',
-    'object-shorthand': 'off',
-    'no-debugger': 2,
-    'import/extensions': 0,
-    'no-unused-expressions': 'error',
-    'no-useless-return': 'off',
-    'no-shadow': 'off',
-    '@typescript-eslint/no-var-requires': 'off',
-  },
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      parserOptions: {
-        project: ['./tsconfig.json'],
-      },
-    },
-  ],
-  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
-    project: ['tsconfig.json'],
+    ecmaVersion: 2020,
+  },
+  rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'prettier/prettier': [
+      'warn',
+      {
+        singleQuote: true,
+        semi: true,
+        trailingComma: 'all',
+        endOfLine: 'auto',
+      },
+    ],
   },
 };
